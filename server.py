@@ -28,8 +28,13 @@ def handle_client(connection, addr):
                 connected = False
 
             print(f'[{addr}] {msg}')
-            connection.send('Message received'.encode(FORMAT))
+            while True:
+                msg = input('Type message to send\n')
+                connection.send(msg.encode(FORMAT))
 
+                if msg == DISCONNECT_MESSAGE:
+                    break
+            
 def start():
     server.listen()
     print(f'Server is listening on {SERVER} PORT:{PORT}')
